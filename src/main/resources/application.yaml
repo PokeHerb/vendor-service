@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: hub-service
+  config:
+    import: 'optional:configserver: '
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:3150/eureka/
