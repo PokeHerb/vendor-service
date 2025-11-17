@@ -1,7 +1,7 @@
 package org.pokeherb.vendorservice.global.infrastructure.exception;
 
 import lombok.Getter;
-import org.pokeherb.hubservice.global.infrastructure.error.BaseErrorCode;
+import org.pokeherb.vendorservice.global.infrastructure.error.BaseErrorCode;
 
 @Getter
 public class CustomException extends RuntimeException{
