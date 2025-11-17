@@ -1,4 +1,4 @@
-package org.pokeherb.hubservice;
+package org.pokeherb.vendorservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

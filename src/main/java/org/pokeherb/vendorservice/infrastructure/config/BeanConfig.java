@@ -1,4 +1,4 @@
-package org.pokeherb.hubservice.infrastructure.config;
+package org.pokeherb.vendorservice.infrastructure.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
