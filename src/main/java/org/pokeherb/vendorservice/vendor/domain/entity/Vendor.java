@@ -38,20 +38,24 @@ public class Vendor extends Auditable {
     private VendorAddress address;
 
     @Builder
-    public Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, VendorAddress address) {
+    public Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details){
         this.hubId = hubId;
         this.name = name;
         this.description = description;
         this.tel = tel;
         this.vendorType = vendorType;
-        this.address = address;
+        setAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
     }
 
-    public void changeInfo(String name, String tel, String description, VendorAddress address) {
+    private void setAddress(String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details) {
+        this.address = new VendorAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
+    }
+
+    public void changeInfo(String name, String tel, String description, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details) {
         this.name = name;
         this.tel = tel;
         this.description = description;
-        this.address = address;
+        setAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
     }
 
     public boolean existsById(UUID hubId, HubServiceClient client) {
