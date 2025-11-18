@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pokeherb.vendorservice.global.domain.Auditable;
 import org.pokeherb.vendorservice.global.infrastructure.client.HubServiceClient;
+import org.pokeherb.vendorservice.global.infrastructure.exception.CustomException;
+import org.pokeherb.vendorservice.vendor.application.dto.request.VendorUpdateRequestDto;
+import org.pokeherb.vendorservice.vendor.domain.exception.VendorErrorCode;
 
 import java.util.UUID;
 
@@ -38,7 +41,7 @@ public class Vendor extends Auditable {
     private VendorAddress address;
 
     @Builder
-    public Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details){
+    private Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details){
         this.hubId = hubId;
         this.name = name;
         this.description = description;
@@ -51,19 +54,21 @@ public class Vendor extends Auditable {
         this.address = new VendorAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
     }
 
-    public void changeInfo(String name, String tel, String description, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details) {
-        this.name = name;
-        this.tel = tel;
-        this.description = description;
-        setAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
+    public void changeInfo(VendorUpdateRequestDto dto) {
+        this.hubId = dto.hubId();
+        this.name = dto.name();
+        this.tel = dto.tel();
+        this.description = dto.description();
+        this.vendorType = dto.vendorType();
+        setAddress(dto.sido(), dto.sigungu(), dto.eupmyeon(), dto.dong(), dto.ri(), dto.street(), dto.buildingNo(), dto.details());
     }
 
     public boolean existsById(UUID hubId, HubServiceClient client) {
 
-        if (client.existsHub(hubId)) {
-            return true;
+        if (!client.existsHub(hubId)) {
+            throw new CustomException(VendorErrorCode.HUB_NOT_FOUND);
         }
-        return false;
+        return true;
     }
 
 
