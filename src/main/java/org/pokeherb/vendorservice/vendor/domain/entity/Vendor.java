@@ -71,6 +71,10 @@ public class Vendor extends Auditable {
         return true;
     }
 
+    public void delete(String username) {
+        softDelete(username);
+    }
+
 
 
 }

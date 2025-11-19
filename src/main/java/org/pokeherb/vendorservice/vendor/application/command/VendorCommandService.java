@@ -4,6 +4,8 @@ import org.pokeherb.vendorservice.vendor.application.dto.request.VendorUpdateReq
 import org.pokeherb.vendorservice.vendor.application.dto.request.VendorCreateRequestDto;
 import org.pokeherb.vendorservice.vendor.application.dto.response.VendorBasicResponseDto;
 
+import java.util.UUID;
+
 
 public interface VendorCommandService {
 
@@ -11,6 +13,7 @@ public interface VendorCommandService {
 
     VendorBasicResponseDto updateVendor(VendorUpdateRequestDto dto);
 
+    void deleteVendor(String username, UUID vendorId);
 
 
 

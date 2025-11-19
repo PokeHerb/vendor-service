@@ -10,6 +10,7 @@ import org.pokeherb.vendorservice.vendor.application.dto.response.VendorBasicRes
 import org.pokeherb.vendorservice.vendor.domain.VendorRepository;
 import org.pokeherb.vendorservice.vendor.domain.entity.Vendor;
 import org.pokeherb.vendorservice.vendor.domain.exception.VendorErrorCode;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +67,15 @@ public class VendorCommandServiceImpl implements VendorCommandService {
         Vendor updateVendor = vendorRepository.save(vendor);
 
         return VendorBasicResponseDto.from(updateVendor);
+
+    }
+
+    @Override
+    public void deleteVendor(String username, UUID vendorId) {
+
+        Vendor vendor = vendorRepository.findById(vendorId).orElseThrow(() -> new CustomException(VendorErrorCode.VENDOR_NOT_FOUND));
+
+        vendor.delete(username);
 
     }
 }
