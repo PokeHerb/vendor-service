@@ -6,6 +6,7 @@ import org.pokeherb.vendorservice.global.domain.Auditable;
 import org.pokeherb.vendorservice.global.infrastructure.client.HubServiceClient;
 import org.pokeherb.vendorservice.global.infrastructure.exception.CustomException;
 import org.pokeherb.vendorservice.vendor.application.dto.request.VendorUpdateRequestDto;
+import org.pokeherb.vendorservice.vendor.domain.dto.VendorDto;
 import org.pokeherb.vendorservice.vendor.domain.exception.VendorErrorCode;
 
 import java.util.UUID;
@@ -63,6 +64,7 @@ public class Vendor extends Auditable {
         setAddress(dto.sido(), dto.sigungu(), dto.eupmyeon(), dto.dong(), dto.ri(), dto.street(), dto.buildingNo(), dto.details());
     }
 
+    // vendor에 hub 아이디 존재하는 지 확인
     public boolean existsById(UUID hubId, HubServiceClient client) {
 
         if (!client.existsHub(hubId)) {
@@ -76,5 +78,21 @@ public class Vendor extends Auditable {
     }
 
 
+    // 반환할 업체 기본 정보
+    public VendorDto toDto() {
+
+        return VendorDto.builder()
+                .id(id)
+                .hubId(hubId)
+                .name(name)
+                .description(description)
+                .tel(tel)
+                .vendorType(vendorType)
+                .street(address.getStreet())
+                .details(address.getDetails())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .build();
+    }
 
 }
