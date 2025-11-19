@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.pokeherb.vendorservice.global.domain.Auditable;
 import org.pokeherb.vendorservice.global.infrastructure.client.HubServiceClient;
+import org.pokeherb.vendorservice.global.infrastructure.exception.CustomException;
+import org.pokeherb.vendorservice.vendor.application.dto.request.VendorUpdateRequestDto;
+import org.pokeherb.vendorservice.vendor.domain.dto.VendorDto;
+import org.pokeherb.vendorservice.vendor.domain.exception.VendorErrorCode;
 
 import java.util.UUID;
 
@@ -38,30 +42,57 @@ public class Vendor extends Auditable {
     private VendorAddress address;
 
     @Builder
-    public Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, VendorAddress address) {
+    private Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details){
         this.hubId = hubId;
         this.name = name;
         this.description = description;
         this.tel = tel;
         this.vendorType = vendorType;
-        this.address = address;
+        setAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
     }
 
-    public void changeInfo(String name, String tel, String description, VendorAddress address) {
-        this.name = name;
-        this.tel = tel;
-        this.description = description;
-        this.address = address;
+    private void setAddress(String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details) {
+        this.address = new VendorAddress(sido, sigungu, eupmyeon, dong, ri, street, buildingNo, details);
     }
 
+    public void changeInfo(VendorUpdateRequestDto dto) {
+        this.hubId = dto.hubId();
+        this.name = dto.name();
+        this.tel = dto.tel();
+        this.description = dto.description();
+        this.vendorType = dto.vendorType();
+        setAddress(dto.sido(), dto.sigungu(), dto.eupmyeon(), dto.dong(), dto.ri(), dto.street(), dto.buildingNo(), dto.details());
+    }
+
+    // vendor에 hub 아이디 존재하는 지 확인
     public boolean existsById(UUID hubId, HubServiceClient client) {
 
-        if (client.existsHub(hubId)) {
-            return true;
+        if (!client.existsHub(hubId)) {
+            throw new CustomException(VendorErrorCode.HUB_NOT_FOUND);
         }
-        return false;
+        return true;
+    }
+
+    public void delete(String username) {
+        softDelete(username);
     }
 
 
+    // 반환할 업체 기본 정보
+    public VendorDto toDto() {
+
+        return VendorDto.builder()
+                .id(id)
+                .hubId(hubId)
+                .name(name)
+                .description(description)
+                .tel(tel)
+                .vendorType(vendorType)
+                .street(address.getStreet())
+                .details(address.getDetails())
+                .createdAt(getCreatedAt())
+                .updatedAt(getUpdatedAt())
+                .build();
+    }
 
 }
