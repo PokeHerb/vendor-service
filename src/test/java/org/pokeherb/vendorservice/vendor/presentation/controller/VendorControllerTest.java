@@ -39,7 +39,7 @@ class VendorControllerTest {
     @DisplayName("업체 단일 조회")
     void getVendor() throws Exception {
         UUID vendorId = UUID.randomUUID();
-        UUID hubId = UUID.randomUUID();
+        Long hubId = 1L;
 
         // 가짜 반환값 생성 (DB에 저장하지 않음, 메모리상에만 존재)
         VendorDto mockResponse = VendorDto.builder()
@@ -67,7 +67,7 @@ class VendorControllerTest {
     @DisplayName("업체 목록 페이징 조회")
     void getAllVendorsByHub() throws Exception {
 
-        UUID hubId = UUID.randomUUID();
+        Long hubId = 1L;
 
         List<VendorDto> dtoList = List.of(
                 VendorDto.builder().name("업체A").build(),

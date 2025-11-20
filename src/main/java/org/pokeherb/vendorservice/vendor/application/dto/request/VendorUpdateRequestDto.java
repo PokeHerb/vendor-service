@@ -9,7 +9,7 @@ import java.util.UUID;
 public record VendorUpdateRequestDto(
 
         UUID vendorId,
-        UUID hubId,
+        Long hubId,
         String name,
         String tel,
         String description,

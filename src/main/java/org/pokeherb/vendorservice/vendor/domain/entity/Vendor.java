@@ -23,7 +23,7 @@ public class Vendor extends Auditable {
     private UUID id;
 
     @Column(nullable = false)
-    private UUID hubId;
+    private Long hubId;
 
     @Column(nullable = false)
     private String name;
@@ -42,7 +42,7 @@ public class Vendor extends Auditable {
     private VendorAddress address;
 
     @Builder
-    private Vendor(UUID hubId, String name, String description, String tel, VendorType vendorType, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details){
+    public Vendor(Long hubId, String name, String description, String tel, VendorType vendorType, String sido, String sigungu, String eupmyeon, String dong, String ri, String street,String buildingNo, String details){
         this.hubId = hubId;
         this.name = name;
         this.description = description;
@@ -65,7 +65,7 @@ public class Vendor extends Auditable {
     }
 
     // vendor에 hub 아이디 존재하는 지 확인
-    public boolean existsById(UUID hubId, HubServiceClient client) {
+    public boolean existsById(Long hubId, HubServiceClient client) {
 
         if (!client.existsHub(hubId)) {
             throw new CustomException(VendorErrorCode.HUB_NOT_FOUND);

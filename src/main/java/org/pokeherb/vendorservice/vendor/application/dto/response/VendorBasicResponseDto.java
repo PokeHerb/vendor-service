@@ -8,7 +8,7 @@ import java.util.UUID;
 @Builder
 public record VendorBasicResponseDto(
         UUID vendorId,
-        UUID hudId,
+        Long hudId,
         String name
 
 ) {

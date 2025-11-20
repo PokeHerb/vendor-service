@@ -10,7 +10,7 @@ import java.util.UUID;
 @Builder
 public record VendorDto(
         UUID id,
-        UUID hubId,
+        Long hubId,
         String name,
         String description,
         String tel,

@@ -10,5 +10,5 @@ public interface VendorDetailsRepository {
 
     VendorDto findById(UUID vendorId);
 
-    Page<VendorDto> findAllByHubId(UUID hubId, Pageable pageable);
+    Page<VendorDto> findAllByHubId(Long hubId, Pageable pageable);
 }

@@ -3,11 +3,9 @@ package org.pokeherb.vendorservice.vendor.application.dto.request;
 import lombok.Builder;
 import org.pokeherb.vendorservice.vendor.domain.entity.VendorType;
 
-import java.util.UUID;
-
 @Builder
 public record VendorCreateRequestDto(
-   UUID hubId,
+   Long hubId,
    String name,
    String description,
    String tel,

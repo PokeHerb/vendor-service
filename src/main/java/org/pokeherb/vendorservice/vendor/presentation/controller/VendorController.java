@@ -29,7 +29,7 @@ public class VendorController {
 
     @GetMapping("/hub")
     public CustomResponse<?> getAllVendorsByHub(
-            @RequestParam(name = "hubId") UUID hubId,
+            @RequestParam(name = "hubId") Long hubId,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         Page<VendorDto> pageResult = vendorDetailsRepository.findAllByHubId(hubId, pageable);
