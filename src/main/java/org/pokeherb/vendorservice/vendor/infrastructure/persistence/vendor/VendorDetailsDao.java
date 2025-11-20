@@ -40,7 +40,7 @@ public class VendorDetailsDao implements VendorDetailsRepository {
     }
 
     @Override
-    public Page<VendorDto> findAllByHubId(UUID hubId, Pageable pageable) {
+    public Page<VendorDto> findAllByHubId(Long hubId, Pageable pageable) {
 
         // 리스트 조회
         QVendor qVendor = QVendor.vendor;

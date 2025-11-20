@@ -10,5 +10,5 @@ import java.util.UUID;
 public interface HubServiceClient {
 
     @GetMapping("/v1/hub/{hubId}/exists")
-    boolean existsHub(@PathVariable("hubId") UUID hubId);
+    boolean existsHub(@PathVariable("hubId") Long hubId);
 }
