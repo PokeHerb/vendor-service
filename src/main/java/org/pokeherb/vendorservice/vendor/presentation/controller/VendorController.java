@@ -15,7 +15,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/vendor")
 public class VendorController {
 
     private final VendorDetailsRepository vendorDetailsRepository;
